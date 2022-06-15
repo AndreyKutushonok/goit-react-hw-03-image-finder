@@ -1,6 +1,11 @@
-const settings = {
-    API_KEY: '25706791-83f254c628a19fe308d2a3f92',
-    BASE_URL: 'https://pixabay.com/api/',
-};
+import axios from 'axios';
 
-export default settings;
+export const axiosGet = axios.create({
+    baseURL: 'https://pixabay.com/api/',
+
+    params: {
+        key: '25706791-83f254c628a19fe308d2a3f92',
+        image_type: 'photo',
+        orientation: 'horizontal',
+    },
+});

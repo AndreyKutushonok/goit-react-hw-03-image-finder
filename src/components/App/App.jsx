@@ -37,39 +37,36 @@ export default class App extends Component {
         this.setState({ searchQuery, currentPage: 1 });
     };
 
-    handleFetch = (prevPage, prevSearchQuery) => {
+    handleFetch = async (prevPage, prevSearchQuery) => {
         const { currentPage, searchQuery } = this.state;
+        try {
+            const images = await getImages(searchQuery, currentPage);
 
-        getImages(searchQuery, currentPage)
-            .then(images => {
-                if (images.hits.length === 0) {
-                    alert('There is no such images');
-                    return this.setState({
-                        queryResult: [],
-                        currentPage: 1,
-                    });
-                }
+            if (images.hits.length === 0) {
+                alert('There is no such images');
+                return this.setState({
+                    queryResult: [],
+                    currentPage: 1,
+                });
+            }
 
-                if (prevSearchQuery !== searchQuery) {
-                    this.setState({
-                        queryResult: images.hits,
-                        totalQueryResult: images.totalHits,
-                    });
-                }
+            if (prevSearchQuery !== searchQuery) {
+                this.setState({
+                    queryResult: images.hits,
+                    totalQueryResult: images.totalHits,
+                });
+            }
 
-                if (
-                    prevSearchQuery === searchQuery &&
-                    prevPage !== currentPage
-                ) {
-                    this.setState(prevState => ({
-                        queryResult: [...prevState.queryResult, ...images.hits],
-                    }));
-                }
-            })
-            .catch(response => {
-                console.log(response);
-            })
-            .finally(() => this.setState({ loading: false }));
+            if (prevSearchQuery === searchQuery && prevPage !== currentPage) {
+                this.setState(prevState => ({
+                    queryResult: [...prevState.queryResult, ...images.hits],
+                }));
+            }
+        } catch (response) {
+            console.log(response);
+        } finally {
+            this.setState({ loading: false });
+        }
     };
 
     toggleModal = () => {

@@ -25,26 +25,23 @@ class Searchbar extends Component {
 
     render() {
         return (
-            <>
-                <header className={s.Searchbar}>
-                    <form className={s.SearchForm} onSubmit={this.handleSubmit}>
-                        <button type="submit" className={s.SearchFormButton}>
-                            {/* <span className={s.ButtonLabel}>Search</span> */}
-                            <img src={search} alt="" />
-                        </button>
+            <header className={s.Searchbar}>
+                <form className={s.SearchForm} onSubmit={this.handleSubmit}>
+                    <button type="submit" className={s.SearchFormButton}>
+                        <img src={search} alt="search icon" />
+                    </button>
 
-                        <input
-                            className={s.SearchFormInput}
-                            type="text"
-                            autoComplete="off"
-                            autoFocus
-                            placeholder="Search images and photos"
-                            name="searchQuery"
-                            onChange={this.handleSearchQuery}
-                        />
-                    </form>
-                </header>
-            </>
+                    <input
+                        className={s.SearchFormInput}
+                        type="text"
+                        autoComplete="off"
+                        autoFocus
+                        placeholder="Search images and photos"
+                        name="searchQuery"
+                        onChange={this.handleSearchQuery}
+                    />
+                </form>
+            </header>
         );
     }
 }
